@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Portfolio - Hubert Kowalczyk</title>
+	<style type="text/css">
+		body
+		{
+			margin:40px auto;
+			max-width:650px;
+			line-height:1.6;
+			font-size:18px;
+			color:#444;
+			padding:0 10px;
+			background-color: #EEEEEE;
+			
+		}
+		h1,h2,h3
+		{
+			line-height:1.2
+		}
+		a
+		{
+			color: black;
+			text-decoration: none;
+		}
+        .overlay
+        {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            transition: opacity 500ms;
+            visibility: hidden;
+            opacity: 0;
+        }
+        .overlay:target
+        {
+            visibility: visible;
+            opacity: 1;
+        }
+        .popup
+        {
+            margin: 70px auto;
+            padding: 20px;
+            background: #EEEEEE;
+            width: 30%;
+            position: relative;
+            transition: all 5s ease-in-out;
+        }
+        .popup h2
+        {
+            margin-top: 0;
+            color: #333;
+        }
+        .popup .close
+        {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            transition: all 200ms;
+            font-size: 30px;
+            font-weight: bold;
+            color: #333;
+        }
+        .popup .close:hover
+        {
+            color: #eeeeee;
+        }
+        .popup .content
+        {
+            max-height: 30%;
+            overflow: auto;
+        }
+
+	</style>
+</head>
+<body>
+
+    <header><h1>Hubert Kowalczyk</h1></header>
+    <aside>Yyyup. When I will have something to show off, it will appear here.</aside>
+</body>
+</html>

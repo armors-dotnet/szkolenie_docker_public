@@ -1,0 +1,174 @@
+openapi: 3.0.3
+info:
+  title: Swagger Kanapker
+  description: |-
+    This is a
+  version: 1.0.11
+servers:
+  - url: localhost:9001
+tags:
+  - name: maker
+    description: Make particular sandwich/drink
+  - name: creator
+    description: Get/edit recipes
+
+paths:
+  /make_sandwich:
+    get:
+      tags:
+        - maker
+      summary: Makes a default sandwich
+      description: Makes a sandwich with all available ingredients
+      operationId: make_sandwich
+      parameters:
+        - name: status
+          in: query
+          description: Status values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: available
+            enum:
+              - available
+              - pending
+              - sold
+      responses:
+        '200':
+          description: successful operation
+        
+        '400':
+          description: Invalid status value
+
+  /make_sandwich_custom:
+    post:
+      tags:
+        - maker
+      summary: Makes a custom sandwich
+      description: Makes a sandwich following custom predefined recipe
+      operationId: make_sandwich_custom
+      requestBody:
+        description: Send id of desired sandwich
+        content:
+          application/json:
+            schema:
+              type: integer
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+        '405':
+          description: Invalid input
+
+  /get_sandwich:
+    get:
+      tags:
+        - creator
+      summary: Get sandwiches
+      description: Get sandwich recipes
+      operationId: get_sandwich
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Sandwich'
+        '400':
+          description: Invalid status value
+  /create_sandwich:
+    post:
+      tags:
+        - creator
+      summary: Define new recipe
+      description: TODO
+      requestBody:
+        description: TODO
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sandwich'
+      responses:
+        '200':
+          description: Successful operation
+        '405':
+          description: Invalid input
+  /get_modules:
+    get:
+      tags:
+        - creator
+      summary: Get modules
+      description: Get list of available modules
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Module'
+        '400':
+          description: Invalid status value
+  /get_status:
+    get:
+      tags:
+        - status
+      summary: Get job status
+      description: Ask server about it's job status
+      responses:
+        '200':
+          description: succesful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+components:
+  schemas:
+    Module:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: bread
+    Sandwich:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: zwykła kanapka
+        modules:
+          type: array
+          items:
+            $ref: '#/components/schemas/Module'
+    Status:
+      type: object
+      properties:
+        status:
+          type: string
+          default: idle
+          enum:
+            - idle
+            - working
+        working_module:
+          type: array
+          items:
+            $ref: '#/components/schemas/Module'
+        module_number:
+          type: integer
+          format: int64
+          example: 1
+        module_count:
+          type: integer
+          format: int64
+          example: 5
